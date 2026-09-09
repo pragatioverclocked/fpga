@@ -1,0 +1,96 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
+S_000002b74856a670 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_000002b74856a190 .scope module, "tb_pixel_inversion" "tb_pixel_inversion" 3 3;
+ .timescale -9 -12;
+P_000002b7485680b0 .param/l "HEIGHT" 0 3 6, +C4<00000000000000000000001000000000>;
+P_000002b7485680e8 .param/l "N" 0 3 7, +C4<0000000000000000000000000000000000000000000001000000000000000000>;
+P_000002b748568120 .param/l "WIDTH" 0 3 5, +C4<00000000000000000000001000000000>;
+v000002b7485cab40_0 .var/i "i", 31 0;
+v000002b7485ca820 .array "input_mem", 262143 0, 23 0;
+v000002b7485ca960_0 .var/i "out_file", 31 0;
+v000002b7485ca3c0_0 .var "pixel_in", 23 0;
+v000002b7485caaa0_0 .net "pixel_out", 23 0, L_000002b7485ca460;  1 drivers
+S_000002b748577630 .scope module, "dut" "pixel_inversion" 3 18, 4 1 0, S_000002b74856a190;
+ .timescale 0 0;
+    .port_info 0 /INPUT 24 "pixel_in";
+    .port_info 1 /OUTPUT 24 "pixel_out";
+L_000002b7485cb0b0 .functor BUFT 1, C4<11111111>, C4<0>, C4<0>, C4<0>;
+v000002b74856a320_0 .net/2u *"_ivl_10", 7 0, L_000002b7485cb0b0;  1 drivers
+L_000002b7485cb0f8 .functor BUFT 1, C4<11111111>, C4<0>, C4<0>, C4<0>;
+v000002b748565910_0 .net/2u *"_ivl_14", 7 0, L_000002b7485cb0f8;  1 drivers
+L_000002b7485cb068 .functor BUFT 1, C4<11111111>, C4<0>, C4<0>, C4<0>;
+v000002b74852e350_0 .net/2u *"_ivl_6", 7 0, L_000002b7485cb068;  1 drivers
+v000002b74852cbc0_0 .net "blue_in", 7 0, L_000002b7485ca0a0;  1 drivers
+v000002b74852c5f0_0 .net "blue_out", 7 0, L_000002b7485cae60;  1 drivers
+v000002b74852c430_0 .net "green_in", 7 0, L_000002b7485cad20;  1 drivers
+v000002b748569b50_0 .net "green_out", 7 0, L_000002b7485ca500;  1 drivers
+v000002b7485777c0_0 .net "pixel_in", 23 0, v000002b7485ca3c0_0;  1 drivers
+v000002b748577860_0 .net "pixel_out", 23 0, L_000002b7485ca460;  alias, 1 drivers
+v000002b748577900_0 .net "red_in", 7 0, L_000002b7485ca6e0;  1 drivers
+v000002b7485779a0_0 .net "red_out", 7 0, L_000002b7485ca8c0;  1 drivers
+L_000002b7485ca6e0 .part v000002b7485ca3c0_0, 16, 8;
+L_000002b7485cad20 .part v000002b7485ca3c0_0, 8, 8;
+L_000002b7485ca0a0 .part v000002b7485ca3c0_0, 0, 8;
+L_000002b7485ca8c0 .arith/sub 8, L_000002b7485cb068, L_000002b7485ca6e0;
+L_000002b7485ca500 .arith/sub 8, L_000002b7485cb0b0, L_000002b7485cad20;
+L_000002b7485cae60 .arith/sub 8, L_000002b7485cb0f8, L_000002b7485ca0a0;
+L_000002b7485ca460 .concat [ 8 8 8 0], L_000002b7485cae60, L_000002b7485ca500, L_000002b7485ca8c0;
+    .scope S_000002b74856a190;
+T_0 ;
+    %vpi_call/w 3 25 "$display", "========================================" {0 0 0};
+    %vpi_call/w 3 26 "$display", "       EXPERIMENT 1 - PIXEL INVERSION" {0 0 0};
+    %vpi_call/w 3 27 "$display", "========================================" {0 0 0};
+    %vpi_call/w 3 30 "$readmemh", "test_vectors/lena_rgb_input.mem", v000002b7485ca820 {0 0 0};
+    %vpi_func 3 36 "$fopen" 32, "test_vectors/lena_rgb_verilog_inverted.mem", "w" {0 0 0};
+    %store/vec4 v000002b7485ca960_0, 0, 32;
+    %load/vec4 v000002b7485ca960_0;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_0.0, 4;
+    %vpi_call/w 3 42 "$display", "ERROR: Cannot open output file." {0 0 0};
+    %vpi_call/w 3 43 "$finish" {0 0 0};
+T_0.0 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000002b7485cab40_0, 0, 32;
+T_0.2 ;
+    %load/vec4 v000002b7485cab40_0;
+    %pad/s 64;
+    %cmpi/s 262144, 0, 64;
+    %jmp/0xz T_0.3, 5;
+    %ix/getv/s 4, v000002b7485cab40_0;
+    %load/vec4a v000002b7485ca820, 4;
+    %store/vec4 v000002b7485ca3c0_0, 0, 24;
+    %delay 1000, 0;
+    %vpi_call/w 3 53 "$fwrite", v000002b7485ca960_0, "%06h\012", v000002b7485caaa0_0 {0 0 0};
+    %load/vec4 v000002b7485cab40_0;
+    %addi 1, 0, 32;
+    %store/vec4 v000002b7485cab40_0, 0, 32;
+    %jmp T_0.2;
+T_0.3 ;
+    %vpi_call/w 3 61 "$fclose", v000002b7485ca960_0 {0 0 0};
+    %vpi_call/w 3 63 "$display", "----------------------------------------" {0 0 0};
+    %vpi_call/w 3 64 "$display", "Resolution : %0d x %0d", P_000002b748568120, P_000002b7485680b0 {0 0 0};
+    %vpi_call/w 3 65 "$display", "Pixels     : %0d", P_000002b7485680e8 {0 0 0};
+    %vpi_call/w 3 66 "$display", "Output     : test_vectors/lena_rgb_verilog_inverted.mem" {0 0 0};
+    %vpi_call/w 3 67 "$display", "----------------------------------------" {0 0 0};
+    %vpi_call/w 3 68 "$display", "SIMULATION COMPLETE" {0 0 0};
+    %vpi_call/w 3 69 "$display", "========================================" {0 0 0};
+    %vpi_call/w 3 71 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "testbench\tb_pixel_inversion.v";
+    "verilog\pixel_inversion.v";
