@@ -1,43 +1,44 @@
-# Experiment 01 — Pixel Inversion
+# Experiment 1 — Pixel Inversion
 
-## Objective
+## Aim
+To perform pixel-wise color inversion on an RGB image using Python and Verilog.
 
-Implement pixel inversion in Python and Verilog and verify that both produce identical results.
+## Input
+- RGB image
+- 8 bits for R, G and B
+- Total: 24 bits per pixel
 
-## Equation
+## Operation
 
-Y = 255 - X
+R_out = 255 - R_in
+G_out = 255 - G_in
+B_out = 255 - B_in
 
-## Python
+## Workflow
 
-OpenCV/NumPy reference implementation.
+Image
+→ Python inversion
+→ Verilog inversion
+→ Compare outputs
 
-## Verilog
+## Tools
+- Python
+- NumPy
+- Pillow
+- Verilog
+- Icarus Verilog
 
-8-bit combinational RTL implementation.
+## Result
 
-## Verification
+Python and Verilog produced identical inverted images.
 
-Python output compared against Verilog output.
-
-## Results
-
-Pixel Accuracy: 100%
-MAE: 0
-MSE: 0
-Max Error: 0
-SSIM: 1.0
-
-## FPGA
-
-LUT: ...
-FF: ...
-BRAM: ...
-DSP: ...
-Fmax: ...
-Latency: ...
+## Metrics
+- Pixel Accuracy: 100%
+- MAE: 0
+- MSE: 0
+- Maximum Error: 0
+- PSNR: Infinity
+- SSIM: 1.0
 
 ## Conclusion
-
-The Verilog implementation reproduced the Python
-reference output exactly.
+Pixel inversion was successfully implemented and verified in Python and Verilog.
