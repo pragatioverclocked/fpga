@@ -1,0 +1,7 @@
+Sobel Edge Detection - Comparison Results
+Pixel Accuracy: 100.00%
+MAE: 0.000000
+MSE: 0.000000
+Maximum Error: 0
+PSNR: inf dB
+SSIM: 1.000000
